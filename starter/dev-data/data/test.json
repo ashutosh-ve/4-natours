@@ -1,0 +1,192 @@
+[
+    {
+        "name": "Himalayan Explorer Trek",
+        "durations": 12,
+        "maxGroupSize": 15,
+        "ratingsAverage": 4.7,
+        "ratingsQuentity": 128,
+        "price": 24999,
+        "discount": 15,
+        "summary": "An adventurous trek through the Himalayan mountain range.",
+        "description": "This tour offers breathtaking views, guided mountain hikes, and authentic local experiences across remote Himalayan villages.",
+        "imageCover": "himalayan-explorer-cover.jpg",
+        "images": ["himalayan-1.jpg", "himalayan-2.jpg", "himalayan-3.jpg"],
+        "createdAt": "2025-01-10T10:30:00.000Z",
+        "startDate": [
+            "2025-03-15T00:00:00.000Z",
+            "2025-04-20T00:00:00.000Z",
+            "2025-05-18T00:00:00.000Z"
+        ]
+    },
+    {
+        "name": "Amazon Rainforest Adventure",
+        "durations": 10,
+        "maxGroupSize": 12,
+        "ratingsAverage": 4.8,
+        "ratingsQuentity": 200,
+        "price": 19999,
+        "discount": 10,
+        "summary": "Explore the lush Amazon rainforest and its diverse wildlife.",
+        "description": "Experience guided tours through the Amazon, canoeing in the rivers, and learning about indigenous cultures.",
+        "imageCover": "amazon-adventure-cover.jpg",
+        "images": ["amazon-1.jpg", "amazon-2.jpg", "amazon-3.jpg"],
+        "createdAt": "2025-02-01T09:00:00.000Z",
+        "startDate": [
+            "2025-06-10T00:00:00.000Z",
+            "2025-07-15T00:00:00.000Z",
+            "2025-08-20T00:00:00.000Z"
+        ]
+    },
+    {
+        "name": "Sahara Desert Expedition",
+        "durations": 8,
+        "maxGroupSize": 10,
+        "ratingsAverage": 4.6,
+        "ratingsQuentity": 150,
+        "price": 15999,
+        "discount": 20,
+        "summary": "A thrilling journey through the vast Sahara Desert.",
+        "description": "Enjoy camel rides, desert camping, and stunning sunsets over the dunes.",
+        "imageCover": "sahara-expedition-cover.jpg",
+        "images": ["sahara-1.jpg", "sahara-2.jpg", "sahara-3.jpg"],
+        "createdAt": "2025-03-05T11:00:00.000Z",
+        "startDate": [
+            "2025-09-01T00:00:00.000Z",
+            "2025-10-10T00:00:00.000Z",
+            "2025-11-15T00:00:00.000Z"
+        ]
+    },
+    {
+        "name": "Alaskan Wilderness Tour",
+        "durations": 14,
+        "maxGroupSize": 8,
+        "ratingsAverage": 4.9,
+        "ratingsQuentity": 180,
+        "price": 29999,
+        "discount": 5,
+        "summary": "Discover the untouched beauty of Alaska's wilderness.",
+        "description": "Experience glacier hikes, wildlife spotting, and cozy nights in remote lodges.",
+        "imageCover": "alaskan-tour-cover.jpg",
+        "images": ["alaskan-1.jpg", "alaskan-2.jpg", "alaskan-3.jpg"],
+        "createdAt": "2025-04-15T08:30:00.000Z",
+        "startDate": [
+            "2025-07-05T00:00:00.000Z",
+            "2025-08-10T00:00:00.000Z",
+            "2025-09-15T00:00:00.000Z"
+        ]
+    },
+    {
+        "name": "African Safari Adventure",
+        "durations": 7,
+        "maxGroupSize": 20,
+        "ratingsAverage": 4.7,
+        "ratingsQuentity": 220,
+        "price": 17999,
+        "discount": 12,
+        "summary": "An unforgettable safari experience in Africa.",
+        "description": "Witness the Big Five, enjoy luxury lodges, and explore the savannah.",
+        "imageCover": "african-safari-cover.jpg",
+        "images": ["safari-1.jpg", "safari-2.jpg", "safari-3.jpg"],
+        "createdAt": "2025-05-20T10:00:00.000Z",
+        "startDate": [
+            "2025-08-01T00:00:00.000Z",
+            "2025-09-10T00:00:00.000Z",
+            "2025-10-15T00:00:00.000Z"
+        ]
+    },
+    {
+        "name": "Patagonia Hiking Expedition",
+        "durations": 10,
+        "maxGroupSize": 12,
+        "ratingsAverage": 4.8,
+        "ratingsQuentity": 140,
+        "price": 21999,
+        "discount": 18,
+        "summary": "Hike through the stunning landscapes of Patagonia.",
+        "description": "Explore glaciers, mountains, and pristine lakes in this breathtaking region.",
+        "imageCover": "patagonia-expedition-cover.jpg",
+        "images": ["patagonia-1.jpg", "patagonia-2.jpg", "patagonia-3.jpg"],
+        "createdAt": "2025-06-10T09:30:00.000Z",
+        "startDate": [
+            "2025-11-01T00:00:00.000Z",
+            "2025-12-10T00:00:00.000Z",
+            "2026-01-15T00:00:00.000Z"
+        ]
+    },
+    {
+        "name": "Great Barrier Reef Dive",
+        "durations": 5,
+        "maxGroupSize": 10,
+        "ratingsAverage": 4.9,
+        "ratingsQuentity": 300,
+        "price": 12999,
+        "discount": 8,
+        "summary": "Dive into the vibrant underwater world of the Great Barrier Reef.",
+        "description": "Experience guided dives, snorkeling, and marine life exploration.",
+        "imageCover": "reef-dive-cover.jpg",
+        "images": ["reef-1.jpg", "reef-2.jpg", "reef-3.jpg"],
+        "createdAt": "2025-07-01T07:00:00.000Z",
+        "startDate": [
+            "2025-09-05T00:00:00.000Z",
+            "2025-10-15T00:00:00.000Z",
+            "2025-11-20T00:00:00.000Z"
+        ]
+    },
+    {
+        "name": "Antarctic Cruise Expedition",
+        "durations": 20,
+        "maxGroupSize": 50,
+        "ratingsAverage": 4.8,
+        "ratingsQuentity": 100,
+        "price": 49999,
+        "discount": 10,
+        "summary": "A once-in-a-lifetime cruise to the icy continent of Antarctica.",
+        "description": "Witness penguins, icebergs, and the pristine beauty of the Antarctic.",
+        "imageCover": "antarctic-cruise-cover.jpg",
+        "images": ["antarctic-1.jpg", "antarctic-2.jpg", "antarctic-3.jpg"],
+        "createdAt": "2025-08-15T12:00:00.000Z",
+        "startDate": [
+            "2025-12-01T00:00:00.000Z",
+            "2026-01-10T00:00:00.000Z",
+            "2026-02-15T00:00:00.000Z"
+        ]
+    },
+    {
+        "name": "European Cultural Tour",
+        "durations": 15,
+        "maxGroupSize": 25,
+        "ratingsAverage": 4.7,
+        "ratingsQuentity": 250,
+        "price": 27999,
+        "discount": 15,
+        "summary": "Explore the rich cultural heritage of Europe.",
+        "description": "Visit iconic landmarks, enjoy local cuisines, and immerse yourself in history.",
+        "imageCover": "european-tour-cover.jpg",
+        "images": ["european-1.jpg", "european-2.jpg", "european-3.jpg"],
+        "createdAt": "2025-09-10T10:30:00.000Z",
+        "startDate": [
+            "2025-10-01T00:00:00.000Z",
+            "2025-11-15T00:00:00.000Z",
+            "2025-12-20T00:00:00.000Z"
+        ]
+    },
+    {
+        "name": "Galapagos Islands Exploration",
+        "durations": 7,
+        "maxGroupSize": 15,
+        "ratingsAverage": 4.9,
+        "ratingsQuentity": 180,
+        "price": 23999,
+        "discount": 12,
+        "summary": "Discover the unique wildlife of the Galapagos Islands.",
+        "description": "Enjoy guided tours, snorkeling, and close encounters with rare species.",
+        "imageCover": "galapagos-exploration-cover.jpg",
+        "images": ["galapagos-1.jpg", "galapagos-2.jpg", "galapagos-3.jpg"],
+        "createdAt": "2025-10-05T11:00:00.000Z",
+        "startDate": [
+            "2025-12-01T00:00:00.000Z",
+            "2026-01-10T00:00:00.000Z",
+            "2026-02-15T00:00:00.000Z"
+        ]
+    }
+]

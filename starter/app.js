@@ -7,6 +7,7 @@ const app = express();
 
 
 app.use(express.json())
+app.set('query parser', 'extended');
 
 app.use(express.static(`${__dirname}/public`))
 
