@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify')
 
 const tourSchema = mongoose.Schema({
     name: {
         type: String,
         required: true, // Fixed typo
-        unique: true
+        unique: true,
+        maxlength: [400, 'Les char please']
     },
     
     durations: {
@@ -46,13 +48,61 @@ const tourSchema = mongoose.Schema({
         type: String,
         required: [true, 'Path `imageCover` is required.'] // Added proper validation
     },
+
+    slug: String,
+
+    secretTour: {
+        type: Boolean,
+        default: false
+    },
+
+
     images: [String],
     createdAt: {
         type: Date,
-        default: Date.now()
+        default: Date.now(),
+        select: false
     },
     startDate: [Date]
+},
+{
+    toJSON: {virtuals: true},
+    toObject: {virtuals: true}
+}
+)
+
+tourSchema.virtual('durationWeeks').get( function(){
+    return this.durations/7;
 })
+
+// Document middleware
+tourSchema.pre('save', function(){
+    this.slug = slugify(this.name , {lower: true})
+  
+})
+
+
+
+tourSchema.pre('remove', function(){
+    console.log('This is from remove middleare')
+  
+})
+
+//query middleware
+tourSchema.pre('find',function(){
+    console.log('--This is from qery middleware--')
+    this.find({secretTour: {$ne: true}})
+})
+
+
+//aggregation middleware
+
+tourSchema.pre('aggregate',function(){
+    console.log('this is this of aggregate',this);
+    console.log(this.pipeline());
+    this.pipeline().push({$project: {numRatings: 0}});
+})
+
 
 const Tour = mongoose.model('Tour',tourSchema)
 module.exports = Tour;

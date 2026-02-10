@@ -1,8 +1,20 @@
-const {getAllTours, getTour, addTour,updateTour,deleteTour} = require('./controllers/tourController');
+const {getAllTours, getTour, addTour,updateTour,deleteTour,aliasTopTours,getTourStats,getMonthlyPlans} = require('./controllers/tourController');
 const express = require('express')
 const router = express.Router();
 
+router
+    .route('/top-5-cheap')
+    .get(aliasTopTours,getAllTours)
 
+
+router
+    .route('/tour-stats')
+    .get(getTourStats)
+
+
+router
+    .route('/monthly-plan/:year')
+    .get(getMonthlyPlans)
 
 router    
     .route('/')
