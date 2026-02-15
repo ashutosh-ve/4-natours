@@ -31,6 +31,7 @@ const tourSchema = mongoose.Schema({
     price: {
         type: Number,
         required: [true, 'This is a required value'], // Fixed typo
+        min: 10
     },
 
     discount: {

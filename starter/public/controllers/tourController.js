@@ -1,7 +1,8 @@
 // const { response } = require('../../app');
 const Tour = require('./../model/tourModel')
 const APIFeatures = require('./../../utils/apiFeatures')
-
+const catchAsync = require('../../utils/catchAsync')
+const AppError = require('../../utils/appError')
 
 const getAllTours = async (req,res)=>{
     try{
@@ -80,32 +81,49 @@ const getAllTours = async (req,res)=>{
 
 
 
-const getTour = async (req,res)=>{
+// const getTour = async (req,res)=>{
     
-    const id = req.params.id;
-    try{
-    const user = await Tour.findById(id);    
-    res.json({
-        data: user
-    })
-    }catch(err){
-        res.send(err);
+//     const id = req.params.id;
+
+  
+//     try{
+//     const user = await Tour.findById(id);
+//     if (!user) {
+//         return next(new AppError('No tour found with that ID', 404));
+//     }
+    
+    
+//     res.json({
+//         data: user
+//     })
+//     }catch(err){
+//         res.send(err);
+//     }
+// }
+
+
+
+const getTour = catchAsync(async (req, res, next) => {
+    const user = await Tour.findById(req.params.id);
+
+    if (!user) {
+        return next(new AppError('No tour found with that ID',200));
     }
-}
+
+    res.json({ data: user });
+});
 
 
-    const addTour = async (req, res) => {
-        try {
-          const newTour = await Tour.create(req.body);
+
+
+    const addTour = catchAsync( async (req, res, next) => {
+        const newTour = await Tour.create(req.body);
       
-          res.status(201).json({
-            message: 'Tour added successfully',
-            newTour
-          });
-        } catch (err) {
-          res.status(400).json({ error: err.message });
-        }
-      };
+        res.status(201).json({
+          message: 'Tour added successfully',
+          newTour
+        });
+      });
 
 
 
