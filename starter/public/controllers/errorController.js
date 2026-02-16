@@ -1,3 +1,11 @@
+const AppError = require('../../utils/appError')
+
+const handleCastErrorDB = (err) =>{
+    const message = `Invlid ${err.path}: ${err.value}`;
+    return new AppError(message,404);
+}
+
+
 const sendErrorDev = (err,res)=>{
     res.status(err.statusCode)
     .json({
@@ -19,13 +27,22 @@ const sendErrorProd = (err,res) =>{
 
  module.exports =  (err,req,res,next)=>{
     err.statusCode = err.statusCode || 500;
-    err.status = err.status || 'failed';
+    err.status = err.status || 'error';
 
     if(process.env.NODE_ENV === 'development'){
-        sendErrorDev(err,res);
+
+        let error =  err;
+        console.log(error)
+        if(err.name === 'CastError')
+                error = handleCastErrorDB(error);
+        sendErrorDev(error,res);
        
 
     }else if(process.env.NODE_ENV === 'production'){
-        sendErrorProd(err,res);
+        let error = err;
+        console.log(error)
+        if(err.name === 'CastError')
+                error = handleCastErrorDB(error);
+        sendErrorProd(error,res);
     }   
 }
