@@ -5,6 +5,11 @@ const handleCastErrorDB = (err) =>{
     return new AppError(message,404);
 }
 
+const handleValidationError = (err) =>{
+    
+    return new AppError(err,404);
+}
+
 
 const sendErrorDev = (err,res)=>{
     res.status(err.statusCode)
@@ -25,16 +30,29 @@ const sendErrorProd = (err,res) =>{
     }
 }
 
- module.exports =  (err,req,res,next)=>{
+module.exports =  (err,req,res,next)=>{
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
 
     if(process.env.NODE_ENV === 'development'){
 
-        let error =  err;
-        console.log(error)
-        if(err.name === 'CastError')
-                error = handleCastErrorDB(error);
+        // let error =  err;
+        // console.log(error)
+        // if(err.name === 'CastError')
+        //         error = handleCastErrorDB(error);
+
+        let error = { ...err };
+        error.message = err.message;
+
+        if (err.name === 'CastError')
+            error = handleCastErrorDB(error);
+
+        if (err.code === 11000)
+            error = handleValidationError(err);
+
+        if (err.name === 'ValidationError')
+            error = handleValidationError(err);
+
         sendErrorDev(error,res);
        
 

@@ -5,14 +5,14 @@ const validator = require('validator');
 const userSchema = mongoose.Schema({
     name: {
         type: String,
-        require: true,
+        required: true,
         default: 'NA',
         maxLength: [30,'Length exceded']
     },
 
     email: {
         type: String,
-        require: true,
+        required: true,
         unique: true,
         lowercase: true,
         validate: [validator.isEmail, 'Email is not valid']
@@ -24,16 +24,21 @@ photo: {
 
 password:{
     type: String,
-    require: TreeWalker,
+    require: true,
     minLength:  8
 },
 
 confirmPassword: {
     type: String,
-    require: [true, 'Please confrm password'],
-    
+    required: [true, 'Please confirm password'],
+    validate: {
+        //Below validator works on create and save only not create.
+        validator: function(el){
+            return el === this.password;
+        },
+        message: 'Password is not matching'
+    } 
 }
-
 });
 
 const User = mongoose.model('User',userSchema);

@@ -5,6 +5,7 @@ const tourRouter = require('./public/tourRouter')
 const app = express();
 const AppError = require('./utils/appError');
 const globalErrorHandle = require('../starter/public/controllers/errorController')
+const userRoute = require('./public/userRouter');
 
 app.use(express.json())
 app.set('query parser', 'extended');
@@ -20,6 +21,8 @@ app.use(morgan('dev'))
 
 //Router
 app.use('/api/v1/tours',tourRouter)
+
+app.use('/api/v1/user',userRoute);
 
 app.use((req,res,next)=>{
     next(new AppError('We got an error shit', 404));
