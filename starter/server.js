@@ -16,7 +16,7 @@ process.on('uncaughtException',(err)=>{
 const DB = process.env.DATABASE.replace('<PASSWORD>',process.env.PASSWORD);
 mongoose.connect(DB).then((conn)=>{
     // console.log(conn.connection);
-    console.log('Connection is successful');
+    console.log('❤️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️Connection is successful🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️❤️');
 })
 
 

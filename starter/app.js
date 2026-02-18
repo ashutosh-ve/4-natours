@@ -13,7 +13,8 @@ app.set('query parser', 'extended');
 app.use(express.static(`${__dirname}/public`))
 
 app.use((req,res,next)=>{
-    console.log('this is from middleware');
+    // console.log('this is from middleware');
+    // console.log('This is the header', req.headers)
    next();
 })
 

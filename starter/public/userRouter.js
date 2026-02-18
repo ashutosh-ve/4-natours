@@ -7,6 +7,7 @@ const {createUser,getUser, getUserById,deleteUserById,updateUser} = require('./c
 const router = express.Router();
 
 router.post('/signup',authController.signup)
+router.post('/login',authController.login)
 
 router.route('/')
         .get(getUser)

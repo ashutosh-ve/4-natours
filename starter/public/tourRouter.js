@@ -1,6 +1,7 @@
 const {getAllTours, getTour, addTour,updateTour,deleteTour,aliasTopTours,getTourStats,getMonthlyPlans} = require('./controllers/tourController');
 const express = require('express')
 const router = express.Router();
+const authController = require('./controllers/authController')
 
 router
     .route('/top-5-cheap')
@@ -18,7 +19,7 @@ router
 
 router    
     .route('/')
-    .get(getAllTours)
+    .get(authController.protect, getAllTours)
     .post(addTour)
 
 router
