@@ -11,6 +11,11 @@ const handleValidationError = (err) =>{
 }
 
 
+
+const handleJWTError =(err)=>{
+    return new AppError('Invalid token please login again',401)
+}
+
 const sendErrorDev = (err,res)=>{
     res.status(err.statusCode)
     .json({
@@ -52,6 +57,9 @@ module.exports =  (err,req,res,next)=>{
 
         if (err.name === 'ValidationError')
             error = handleValidationError(err);
+
+        if(err.name === 'JsonWebTokenError')
+            error = handleJWTError(err);
 
         sendErrorDev(error,res);
        

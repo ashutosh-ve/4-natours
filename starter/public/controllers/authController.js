@@ -1,3 +1,4 @@
+const {promisify} = require('util');
 const AppError = require('../../utils/appError');
 const catchAsync = require('../../utils/catchAsync');
 const User = require('../model/userModel');
@@ -16,6 +17,7 @@ exports.signup = catchAsync( async (req,res,next)=>{
         email: req.body.email,
         password: req.body.password,
         confirmPassword: req.body.confirmPassword,
+        passwordChangedAt: req.body.passwordChangedAt
     });
 
     const token = signToken(newUser._id)
@@ -75,11 +77,24 @@ exports.protect = catchAsync( async (req,res,next )=>{
 
 
     //2) ValidateToken
+       const decode = await promisify( jwt.verify)(token, process.env.JWT_SECRET)
+    //    console.log(decode);
+    //3) Check if user exist
+    
+    const freshUser = await User.findById(decode.id);
 
+    if(!freshUser){
+        return next(new AppError('Tocken with this user does not exist', 401));
+    }
 
-    //3 Check if user exist
 
 
     //4 Check if user changed pass after jwt token was issued.
+    if (freshUser.changedPasswordAfter(decode.iat)){
+        return next(new AppError('Password changged recently',401))
+    }
+
+    //We wll now give access to the route
+    req.user = freshUser;
     next()
 })
