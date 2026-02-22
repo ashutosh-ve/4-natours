@@ -23,6 +23,13 @@ photo: {
     type: String
 },
 
+role: {
+    type: String,
+    required: 'true',
+    enum: ['user', 'guide', 'lead-guide', 'admin'],
+    default: 'user'
+},
+
 password:{
     type: String,
     require: true,

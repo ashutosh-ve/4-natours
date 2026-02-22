@@ -17,9 +17,11 @@ exports.signup = catchAsync( async (req,res,next)=>{
         email: req.body.email,
         password: req.body.password,
         confirmPassword: req.body.confirmPassword,
-        passwordChangedAt: req.body.passwordChangedAt
+        passwordChangedAt: req.body.passwordChangedAt,
+        role: req.body.role
     });
 
+    
     const token = signToken(newUser._id)
 
     res.status(201)
@@ -98,3 +100,14 @@ exports.protect = catchAsync( async (req,res,next )=>{
     req.user = freshUser;
     next()
 })
+
+
+
+exports.restrictTo = (...role) =>{
+    return (req,res,next)=>{
+        if(!role.includes(req.user.role)){
+            return next(new AppError('You are not authorized to delete',403))
+        }
+            next();
+    }
+}
