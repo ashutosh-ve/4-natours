@@ -4,7 +4,7 @@ const catchAsync = require('../../utils/catchAsync');
 const User = require('../model/userModel');
 const jwt = require('jsonwebtoken');
 const sendEmail = require('../../utils/email')
-
+const cyypto = require('crypto');
 
 const signToken=(id)=>{
     return jwt.sign({id},process.env.JWT_SECRET,{
@@ -140,7 +140,7 @@ exports.forgotPassword = catchAsync (async (req,res,next)=>{
 
     }catch(err){
         user.passwordResetToken= undefined;
-        user.passwordResetExpired = undefined;
+        user.passwordResetExpires = undefined;
         await user.save({validateBeforeSave: false})
 
         return next(new AppError('Error sending email to user',500))
@@ -157,5 +157,21 @@ exports.forgotPassword = catchAsync (async (req,res,next)=>{
 
 
 exports.resetPassword=(req,res,next)=>{
-next()
-}
+    //1) Get user based token
+    const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+    
+
+
+    // 2) if token not expired and user exist, then we will reset pass
+
+
+
+    // 3) Update changedPasswordAt property of user
+
+
+
+    //4) Log the user in, send JWT                   
+
+
+    next()
+} 

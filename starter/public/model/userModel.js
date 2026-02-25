@@ -34,7 +34,7 @@ role: {
 
 password:{
     type: String,
-    require: true,
+    required: true,
     minLength:  8,
     // select: false
 },
@@ -57,7 +57,7 @@ confirmPassword: {
     },
 
     passwordResetToken:String,
-    passwordResetExpired: Date
+    passwordResetExpires: Date
 });
 
   userSchema.pre('save', async function(){
@@ -88,7 +88,7 @@ userSchema.methods.createPasswordResetToken = function(){
     const resetToken = crypto.randomBytes(32).toString('hex');
 
     this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex')
-    this.passwordResetExpired = Date.now()+10*60*1000;
+    this.passwordResetExpires = Date.now()+10*60*1000;
     console.log({resetToken}, this.passwordResetToken)
     return resetToken;
 
