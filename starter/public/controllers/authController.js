@@ -3,6 +3,7 @@ const AppError = require('../../utils/appError');
 const catchAsync = require('../../utils/catchAsync');
 const User = require('../model/userModel');
 const jwt = require('jsonwebtoken');
+const sendEmail = require('../../utils/email')
 
 
 const signToken=(id)=>{
@@ -123,7 +124,34 @@ exports.forgotPassword = catchAsync (async (req,res,next)=>{
     //2 Generate the random reset token
     const resetToken = user.createPasswordResetToken();
         await user.save({validateBeforeSave: false});
+
     //3 Send it to user email
+    const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}`;
+    const message= `OOps! forgot passsword? Submit a PATCH req in ${resetURL}`
+
+
+    try{
+
+         await sendEmail({
+        email: user.email,
+        subject: 'Link valid for 10 mins',
+        message
+    })
+
+    }catch(err){
+        user.passwordResetToken= undefined;
+        user.passwordResetExpired = undefined;
+        await user.save({validateBeforeSave: false})
+
+        return next(new AppError('Error sending email to user',500))
+    }
+   
+
+    res.status(200)
+        .json({
+            status: 'Success',
+            message: 'Token send'
+        })
 })
 
 
