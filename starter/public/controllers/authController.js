@@ -4,7 +4,7 @@ const catchAsync = require('../../utils/catchAsync');
 const User = require('../model/userModel');
 const jwt = require('jsonwebtoken');
 const sendEmail = require('../../utils/email')
-const cyypto = require('crypto');
+const crypto = require('crypto');
 
 const signToken=(id)=>{
     return jwt.sign({id},process.env.JWT_SECRET,{
@@ -156,18 +156,36 @@ exports.forgotPassword = catchAsync (async (req,res,next)=>{
 
 
 
-exports.resetPassword=(req,res,next)=>{
+exports.resetPassword= async(req,res,next)=>{
     //1) Get user based token
     const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
     
-
+    
 
     // 2) if token not expired and user exist, then we will reset pass
 
+const user = await User.findOne({passwordResetToken: hashedToken, passwordResetExpires: {$gt: Date.now()}});
 
+    if(!user){
+        return next(new AppError('Token is invalid or expired',400))
+    }
+
+    user.password = req.body.password;
+    user.confirmPassword = req.body.confirmPassword;
+
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+
+    await user.save();
 
     // 3) Update changedPasswordAt property of user
+    const token = signToken(user._id);
 
+    res.status(200)
+        .json({
+            status: 'Success',
+            token
+        })
 
 
     //4) Log the user in, send JWT                   
