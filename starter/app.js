@@ -26,7 +26,7 @@ app.use('/api/v1/tours',tourRouter)
 app.use('/api/v1/user',userRoute);
 
 app.use((req,res,next)=>{
-    next(new AppError('We got an error shit', 404));
+    next(new AppError('Check router - cought by middleware in app.js', 404));
 })
 
 app.use(globalErrorHandle)

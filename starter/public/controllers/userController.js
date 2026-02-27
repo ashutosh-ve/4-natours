@@ -1,5 +1,19 @@
+const AppError = require('../../utils/appError');
 const catchAsync = require('../../utils/catchAsync');
 const User = require('../model/userModel');
+
+
+
+const filterObj = (obj, ...allowedFields) =>{
+    const newObj = {};
+    
+    Object.keys(obj).forEach(el =>{
+        if(allowedFields.includes(el))
+            newObj[el] = obj[el]
+
+    })
+return newObj;
+}
 
 
 const createUser =  catchAsync (async (req,res,next)=>{
@@ -65,10 +79,47 @@ const updateUser = catchAsync(async (req,res,next)=>{
         })
 })
 
+
+const updateMe = async (req,res,next) =>{
+    //1) crate error if user post pass data
+    if(req.body.password || req.body.confirmPassword){
+        return next(new AppError('Updating pass through this route is not allowed',400))
+    }
+    console.log('below is the request',req.user)
+
+    const filteredBody = filterObj(req.body, 'name', 'email');
+    const user = await User.findByIdAndUpdate(req.user.id,filteredBody,{
+        new: true,
+        runValidators: true
+    })
+
+    res.status(200)
+        .json({
+            status: 'Success'
+        })
+
+}
+
+
+const deleteMe = async (req,res,next)=>{
+    const user = await User.findByIdAndUpdate(req.user.id, {active: false}, {new: true, runValidators: true});
+    if(!user){
+        return next(new AppError('Unable to find user',400));
+    }
+
+    res.status(200)
+        .json({
+            status: 'Success',
+            user
+        })
+}
+
 module.exports = {
     createUser,
     getUser,
     getUserById,
     deleteUserById,
-    updateUser
+    updateUser,
+    updateMe,
+    deleteMe
 }
