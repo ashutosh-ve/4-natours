@@ -193,3 +193,37 @@ const user = await User.findOne({passwordResetToken: hashedToken, passwordResetE
 
     next()
 } 
+
+
+exports.updatePassword = async (req,res,next) =>{
+    //1 User from the collection
+    console.log(req.user)
+    const user = await User.findById(req.user.id).select('+password');
+    console.log(user)
+    if(!user){
+        return next(new AppError('You are not logged in or user does not exist',404));
+    }
+
+
+    //2 if posted pas is correct
+    if(!(await user.correctPassword(req.body.passwordCurrent, user.password))){
+        return next(new AppError('Password does not match',401));
+    }
+
+
+    //3 update pass
+    user.password = req.body.password;
+    user.confirmPassword = req.body.confirmPassword;
+    await user.save();
+
+
+    //4  Log user in, send jwt
+    const token = signToken(user._id);
+
+    res.status(200)
+        .json({
+            status: 'Success',
+            token
+        })
+
+}
