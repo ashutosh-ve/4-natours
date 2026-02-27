@@ -101,7 +101,7 @@ const updateMe = async (req,res,next) =>{
 }
 
 
-const deleteMe = async (req,res,next)=>{
+const deleteMe = catchAsync (async (req,res,next)=>{
     const user = await User.findByIdAndUpdate(req.user.id, {active: false}, {new: true, runValidators: true});
     if(!user){
         return next(new AppError('Unable to find user',400));
@@ -112,7 +112,7 @@ const deleteMe = async (req,res,next)=>{
             status: 'Success',
             user
         })
-}
+})
 
 module.exports = {
     createUser,

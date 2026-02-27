@@ -107,5 +107,12 @@ userSchema.methods.createPasswordResetToken = function(){
 
 }
 
+
+userSchema.pre(/^find/, function(){
+    this.find({active: true})
+
+})
+
+
 const User = mongoose.model('User',userSchema);
 module.exports = User;
