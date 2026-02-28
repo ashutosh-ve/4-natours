@@ -38,6 +38,7 @@ exports.signup = catchAsync( async (req,res,next)=>{
 
 exports.login = catchAsync(async(req,res,next)=>{
     const {email, password} = req.body;
+    console.log('This is request ip',req.ip)
 
     // 1) Check if email and pass exist
         if(!email || !password){
