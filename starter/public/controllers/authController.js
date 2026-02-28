@@ -61,6 +61,11 @@ exports.login = catchAsync(async(req,res,next)=>{
 
 const token= signToken(user._id);
 
+ res.cookie('jwt',token,{
+        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 *  60 *1000),
+        httpOnly: true
+    });
+
 res.status(200)
         .json({
             status: 'Success',
@@ -224,6 +229,16 @@ exports.updatePassword = async (req,res,next) =>{
 
     //4  Log user in, send jwt
     const token = signToken(user._id);
+
+
+
+    //implementing cookies
+
+    res.cookie('jwt',token,{
+        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 *  60 *1000),
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production'
+    });
 
     res.status(200)
         .json({
