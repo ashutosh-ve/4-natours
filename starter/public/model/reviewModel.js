@@ -32,7 +32,7 @@ const reviewSchema = mongoose.Schema({
 )
 
 reviewSchema.pre(/^find/, function(){
-    this.populate(['user','tour'])
+    this.populate(['user'])
 })
 
 const Reviews = mongoose.model('Reviews', reviewSchema)

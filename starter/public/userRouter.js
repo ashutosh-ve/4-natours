@@ -4,6 +4,7 @@ const authController = require('./controllers/authController');
 const { model } = require('mongoose');
 const {createUser,getUser, getUserById,deleteUserById,updateUser, updateMe,deleteMe} = require('./controllers/userController');
 const { route } = require('./userRouter');
+const reviewsController = require('../public/controllers/reviewController');
 
 const router = express.Router();
 
@@ -26,6 +27,9 @@ router.route('/:id')
         .get(getUserById)
         .delete(deleteUserById)
         .patch(updateUser)
+
+
+
 
 
 module.exports = router;
