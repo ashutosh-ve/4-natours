@@ -12,7 +12,7 @@ mongoose.connect(DB).then((conn)=>{
     console.log('Connection is successful');
 })
 
-const tours = JSON.parse( (fs.readFileSync(`${__dirname}/test.json`, 'utf-8')));
+const tours = JSON.parse( (fs.readFileSync(`${__dirname}/tours.json`, 'utf-8')));
 console.log('this is log',tours)
 
 

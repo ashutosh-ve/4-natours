@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-const slugify = require('slugify')
+const slugify = require('slugify');
+const User = require('./userModel');
+
 
 const tourSchema = mongoose.Schema({
     name: {
@@ -11,7 +13,7 @@ const tourSchema = mongoose.Schema({
     
     durations: {
         type: Number,
-        required: [true, 'This value is required'], // Fixed typo
+         // Fixed typo
     },
     maxGroupSize: {
         type: Number,
@@ -47,7 +49,7 @@ const tourSchema = mongoose.Schema({
     },
     imageCover: {
         type: String,
-        required: [true, 'Path `imageCover` is required.'] // Added proper validation
+        required: [false, 'Path `imageCover` is required.'] // Added proper validation
     },
 
     slug: String,
@@ -56,6 +58,43 @@ const tourSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
+
+    startLocation: {
+        type: {
+            type: String,
+            default: 'Point',
+            enum: ['Point']
+        },
+        coordinates: [Number],
+        address: String,
+        description: String
+
+    },
+
+    locations: [
+        {
+        type: {
+            type: String,
+            default: 'Point',
+            enum: ['Point']
+        },
+        coordinates: [Number],
+        address: String,
+        description: String,
+        day: Number
+}],
+
+guides: [
+    {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User'
+}
+],
+
+reviews: [
+    {type: mongoose.Schema.ObjectId,
+    ref: 'Review'}
+],
 
 
     images: [String],
@@ -74,6 +113,13 @@ const tourSchema = mongoose.Schema({
 
 tourSchema.virtual('durationWeeks').get( function(){
     return this.durations/7;
+})
+
+/// virtual populate
+tourSchema.virtual('reviewsVirtual',{
+    ref: 'Reviews',
+    foreignField: 'tour',
+    localField: '_id'
 })
 
 // Document middleware
@@ -104,6 +150,20 @@ tourSchema.pre('aggregate',function(){
     this.pipeline().push({$project: {numRatings: 0}});
 })
 
+
+//populate middleware
+
+tourSchema.pre(/^find/, function(){
+    this.populate({
+        path: 'guides',
+        select: '-__v -passwordChangedAt'
+    })
+})
+
+// tourSchema.pre('save', async function(){
+//     const guidesPromises = this.guides.map(async id => await User.findById(id));
+//     this.guides = await Promise.all(guidesPromises);
+// })
 
 const Tour = mongoose.model('Tour',tourSchema)
 module.exports = Tour;

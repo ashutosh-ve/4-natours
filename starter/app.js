@@ -10,7 +10,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean')
 const hpp = require('hpp')
-
+const reviewRouter = require('./public/reviewRouter')
 
 const app = express();
 
@@ -56,6 +56,7 @@ app.use((req,res,next)=>{
 app.use('/api/v1/tours',tourRouter)
 
 app.use('/api/v1/user',userRoute);
+app.use('/api/v1/review',reviewRouter)
 
 app.use((req,res,next)=>{
     next(new AppError('Check router - cought by middleware in app.js', 404));
