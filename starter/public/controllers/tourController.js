@@ -64,7 +64,7 @@ const getAllTours = async (req,res)=>{
         .paginate();
 
 
-   const allUser = await features.query;
+   const allUser = await features.query.explain("executionStats");
    res.json({
     status: 'Success',
     total:  allUser.length,

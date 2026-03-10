@@ -23,7 +23,7 @@ router
 
 router    
     .route('/')
-    .get(authController.protect, getAllTours)
+    .get( getAllTours)
     .post(addTour)
 
 router

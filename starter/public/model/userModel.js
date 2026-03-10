@@ -36,7 +36,7 @@ password:{
     type: String,
     required: true,
     minLength:  8,
-    // select: false
+    select: false
 },
 
 confirmPassword: {
@@ -66,6 +66,8 @@ confirmPassword: {
     }
 });
 
+
+
   userSchema.pre('save', async function(){
         if(!this.isModified('password'))
         return;
@@ -81,6 +83,9 @@ confirmPassword: {
         this.passwordChangedAt = Date.now()-1000;
         
     })
+
+
+
 
 
     userSchema.methods.correctPassword = async function(candidatePassword, userPassword){

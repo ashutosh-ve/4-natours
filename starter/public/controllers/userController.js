@@ -1,8 +1,32 @@
 const AppError = require('../../utils/appError');
 const catchAsync = require('../../utils/catchAsync');
 const User = require('../model/userModel');
+const multer = require('multer');
 
+const multerStorage = multer.diskStorage({
+    destination: (req,file,cb)=>{
+        cb(null, 'public/img/users')
+    },
+    filename: (req,file,cb)=>{
+        const ext = file.mimetype.split('/')[1];
+        cb(null, `user-balaaa-${Date.now()}.${ext}`);
+}
+})
 
+const multiFilter=(req,file,cb)=>{
+    if(file.mimetype.startsWith('image')){
+        cb(null,true)
+    }else{
+        cb(new AppError('Wrong file type',400), false)
+    }
+}
+
+const upload = multer({
+    storage: multerStorage,
+    fileFilter: multiFilter
+})
+
+const uploadUserPhoto = upload.single('photo')
 
 const filterObj = (obj, ...allowedFields) =>{
     const newObj = {};
@@ -82,6 +106,7 @@ const updateUser = catchAsync(async (req,res,next)=>{
 
 const updateMe = async (req,res,next) =>{
     //1) crate error if user post pass data
+    console.log(req.file)
     if(req.body.password || req.body.confirmPassword){
         return next(new AppError('Updating pass through this route is not allowed',400))
     }
@@ -114,6 +139,16 @@ const deleteMe = catchAsync (async (req,res,next)=>{
         })
 })
 
+const getMe = catchAsync( async(req,res,next) =>{
+    const findUser = await User.findById(req.user.id);
+
+    res.status(200)
+        .json({
+            status: 'Success',
+            findUser
+        })
+})
+
 module.exports = {
     createUser,
     getUser,
@@ -121,5 +156,7 @@ module.exports = {
     deleteUserById,
     updateUser,
     updateMe,
-    deleteMe
+    deleteMe,
+    getMe,
+    uploadUserPhoto
 }
