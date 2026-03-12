@@ -15,7 +15,7 @@ const signToken=(id)=>{
 exports.signup = catchAsync( async (req,res,next)=>{
     const newUser = await User.create({
         name: req.body.name,
-        email: req.body.email,
+        email: req.body.email,  
         password: req.body.password,
         confirmPassword: req.body.confirmPassword,
         passwordChangedAt: req.body.passwordChangedAt,
@@ -34,6 +34,7 @@ exports.signup = catchAsync( async (req,res,next)=>{
             }
         })
 })
+
 
 
 exports.login = catchAsync(async(req,res,next)=>{
