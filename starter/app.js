@@ -11,10 +11,12 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean')
 const hpp = require('hpp')
 const reviewRouter = require('./public/reviewRouter')
+const bookingRouter = require('./public/bookingRoutes')
 
 const app = express();
 
 //Global middleware
+
 app.use(helmet())
 
 app.use(morgan('dev'))
@@ -57,6 +59,7 @@ app.use('/api/v1/tours',tourRouter)
 
 app.use('/api/v1/user',userRoute);
 app.use('/api/v1/review',reviewRouter)
+app.use('/api/v1/booking',bookingRouter)
 
 app.use((req,res,next)=>{
     next(new AppError('Check router - cought by middleware in app.js', 404));
